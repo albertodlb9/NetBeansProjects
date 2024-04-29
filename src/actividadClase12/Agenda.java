@@ -41,9 +41,9 @@ public class Agenda {
                 System.out.println("------------MENU-------------");
                 System.out.println("1. Añadir contacto");
                 System.out.println("2. Mostrar todos los contactos");
-                System.out.println("3. Eliminar fichero segun numero de telefono");
+                System.out.println("3. Eliminar contacto segun numero de telefono");
                 System.out.println("4. Crear un fichero de contactos VCF");
-                System.out.println("5. GUardar copia de seguridad");
+                System.out.println("5. Guardar copia de seguridad");
                 System.out.println("6. Cargar contactos desde copia de seguridad");
                 System.out.println("7. Guardar CSV y salir");
                 System.out.print("Introduzca su opcion: ");
@@ -76,7 +76,7 @@ public class Agenda {
                     }
                     case 7:{
                         guardarContactos();
-                        System.out.println("Guardadndo contactos...");
+                        System.out.println("Guardando contactos...");
                         System.out.println("Saliendo del programa. Hasta luego!");
                         break;
                     }
@@ -106,7 +106,7 @@ public class Agenda {
             
         }
         catch(IOException e){
-            System.err.println("Error: no se encuentra el archivo.");
+            System.err.println("");
         }
     }
     
@@ -114,13 +114,13 @@ public class Agenda {
         
         try{
             System.out.print("Introduzca el nombre: ");
-            String nombre = sc.nextLine();
+            String nombre = sc.next();
             System.out.print("Introduzca los apellidos: ");
-            String apellidos = sc.nextLine();
+            String apellidos = sc.next();
             System.out.print("Introduzca el numero de telefono: ");
             int telefono = sc.nextInt();
             System.out.print("Introduzca el email: ");
-            String email = sc.nextLine();
+            String email = sc.next();
             
             contactos.add(new Contacto(nombre,apellidos,telefono,email));
         }
