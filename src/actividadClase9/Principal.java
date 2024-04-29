@@ -46,11 +46,11 @@ public class Principal {
                     break;
                 }
                 case 3:{
-                    eliminarCliente();
+                    //eliminarCliente();
                     break;
                 }
                 case 4:{
-                    mostrarClientes();
+                    //mostrarClientes();
                     break;
                 }
                 case 5:{
@@ -100,12 +100,13 @@ public class Principal {
         }
     }
     
-    private static Persona extraerCliente(String dni){
+    /*private static Persona extraerCliente(String dni){
         Iterator<Persona> it = conjunto.iterator();
         String otroDni = dni;
         while(it.hasNext()){
             Persona persona = it.next();
-            if(persona.getDni().equals(otroDni))
-        }
-    }
+            if(persona.getDni().equals(otroDni)){
+            }
+        }    
+    }*/
 }
