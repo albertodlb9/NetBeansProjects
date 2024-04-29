@@ -22,7 +22,7 @@ import java.util.Scanner;
  */
 public class Agenda {
     
-    private static Scanner sc = new Scanner(System.in).useDelimiter("\n");
+    private static final Scanner sc = new Scanner(System.in).useDelimiter("\n");
     private static List<Contacto> contactos;
     private static final String FICHERO_CSV = "datos/contactos.csv";
     
@@ -94,7 +94,7 @@ public class Agenda {
     
     public static void cargarContactos(){
         
-        contactos = new ArrayList<Contacto>();
+        contactos = new ArrayList<>();
         
         try(BufferedReader in = new BufferedReader(new FileReader(FICHERO_CSV))){
             String linea;
@@ -130,28 +130,35 @@ public class Agenda {
     }
     
     public static void mostrarContactos(){
-        
-        Iterator<Contacto> it = contactos.iterator();
-        
-        while(it.hasNext()){
-            Contacto contacto = it.next();
-            System.out.println(contacto.toString());
+        if(!contactos.isEmpty()){
+            Iterator<Contacto> it = contactos.iterator();
+
+            while(it.hasNext()){
+                Contacto contacto = it.next();
+                System.out.println(contacto.toString());
+            }
+        } else{
+            System.out.println("La agenda esta vacia");
         }
     }
     
     public static void eliminarContacto(){
         
-        try{
-            System.out.print("Introduzca el numero de telefono del contacto que desea eliminar: ");
-            int telefono = sc.nextInt();
-            if(contactos.contains(new Contacto(telefono))){
-                contactos.remove(new Contacto(telefono));
-            } else{
-                System.out.println("El numero no se encuentra en sus contactos");
+        if(!contactos.isEmpty()){
+            try{
+                System.out.print("Introduzca el numero de telefono del contacto que desea eliminar: ");
+                int telefono = sc.nextInt();
+                if(contactos.remove(new Contacto(telefono))){
+                    System.out.println("Contacto eliminado");
+                } else{
+                    System.out.println("El numero no se encuentra en sus contactos");
+                }
             }
-        }
-        catch(InputMismatchException e){
-            System.err.println("Error: el dato introducido no es correcto");
+            catch(InputMismatchException e){
+                System.err.println("Error: el dato introducido no es correcto");
+            }
+        } else{
+            System.out.println("La agenda esta vacia");
         }
     }
     
@@ -174,6 +181,8 @@ public class Agenda {
                 out.newLine();
                 out.write("END:VCARD");
                 out.newLine();
+                
+                System.out.println("Archivo Contactos.vcf creado correctamente");
             }
         }
         catch(IOException e){
@@ -184,7 +193,9 @@ public class Agenda {
     public static void copiaSeguridad(){
         
         try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("datos/copiaSeguridad.dat"))){
-            out.writeObject(contactos);           
+            out.writeObject(contactos);  
+            
+            System.out.println("Copia de seguridad creada correctamente");
         }
         catch(IOException e){
             System.err.println("Error: no se encuentra el archivo");
@@ -202,6 +213,9 @@ public class Agenda {
                Contacto contacto = it.next();
                contactos.add(contacto);
            }
+           
+           System.out.println("Cargando contactos...");
+           System.out.println("Contactos cargados correctamente");
         }
         catch(IOException e){
             System.err.println("Error: el archivo no se ha encontrado");
